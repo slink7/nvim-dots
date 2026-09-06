@@ -1,30 +1,37 @@
-local save_file = "scheme_save"
+local save_file = "config/scheme_save"
 
 local schemes = {
 	"habamax", "lunaperche", "slate", "sorbet", "unokai"
 }
 
+function save_scheme(scheme)
+	local file = io.open(save_file, "w")
+	if not file then return end
+	file:write(scheme)
+	file:close()
+end
+
+function load_scheme()
+	local file = io.open(save_file, "r")
+	if not file then return nil end
+	local out = file:read("*all")
+	file:close()
+	return out
+end
+
 for k, v in ipairs(schemes) do
 	vim.keymap.set("n", "<leader>cs"..k, function()
 		vim.cmd("colorscheme "..v)
-		local file = io.open(save_file..".lua", "w")
-		if file then
-			file:write("return \""..v.."\"")
-			file:close()
-		else
-			print("Couldn't open colorscheme.lua")
-		end
+		save_scheme(v)
 		print("Selected colorscheme: "..v)
 	end, { desc = "Set colorscheme "..v })
 end
 
-local selected_scheme = require(save_file)
+local selected_scheme = load_scheme()
 
-if not selected_scheme or type(selected_scheme) ~= "string" then
+if not selected_scheme or type(selected_scheme) ~= "string" or selected_scheme == "" then
 	selected_scheme = schemes[1]
-	print("Selected default")
-else
-	print("Found "..selected_scheme)
+	save_scheme(selected_scheme)
 end
 
 vim.cmd("colorscheme "..selected_scheme)
