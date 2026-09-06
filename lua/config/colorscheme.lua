@@ -1,4 +1,4 @@
-local save_file = "config/scheme_save"
+local save_file = vim.fn.stdpath("config").."/lua/config/scheme_save"
 
 local schemes = {
 	"habamax", "lunaperche", "slate", "sorbet", "unokai"
