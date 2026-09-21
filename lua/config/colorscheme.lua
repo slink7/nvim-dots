@@ -4,14 +4,14 @@ local schemes = {
 	"habamax", "lunaperche", "slate", "sorbet", "unokai"
 }
 
-function save_scheme(scheme)
+local function save_scheme(scheme)
 	local file = io.open(save_file, "w")
 	if not file then return end
 	file:write(scheme)
 	file:close()
 end
 
-function load_scheme()
+local function load_scheme()
 	local file = io.open(save_file, "r")
 	if not file then return nil end
 	local out = file:read("*all")
