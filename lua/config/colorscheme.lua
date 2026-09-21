@@ -1,7 +1,7 @@
 local save_file = vim.fn.stdpath("config").."/lua/config/scheme_save"
 
 local schemes = {
-	"habamax", "lunaperche", "slate", "sorbet", "unokai"
+	"habamax", "lunaperche", "slate", "sorbet", "unokai", "nightfox", "tokyonight-night"
 }
 
 local function save_scheme(scheme)
